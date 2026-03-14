@@ -169,4 +169,9 @@ Use **Two Pointers** when:
 * Searching from **both ends**
 
 ---
+| Method                    | Time Complexity | Space |
+| ------------------------- | --------------- | ----- |
+| Two Pointer               | **O(n)**        | O(1)  |
+| Binary Search             | **O(n log n)**  | O(1)  |
+| Hash Map (normal Two Sum) | O(n)            | O(n)  |
 
