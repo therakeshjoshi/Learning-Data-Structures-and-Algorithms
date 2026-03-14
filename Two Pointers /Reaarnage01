@@ -1,0 +1,195 @@
+# Segregate 0s and 1s
+
+## Problem
+
+Given an array `arr` consisting only of `0`s and `1`s in random order, modify the array **in-place** so that:
+
+* All **0s appear on the left**
+* All **1s appear on the right**
+
+### Example
+
+Input
+
+```
+arr = [0,0,1,1,0]
+```
+
+Output
+
+```
+[0,0,0,1,1]
+```
+
+---
+
+# Approach 1: Counting Method (Brute Force)
+
+### Idea
+
+1. Count the number of `0`s in the array.
+2. Fill the first `count0` positions with `0`.
+3. Fill the remaining positions with `1`.
+
+### Algorithm
+
+1. Traverse array and count zeros.
+2. Traverse again and update elements.
+
+### Code
+
+```cpp
+class Solution {
+public:
+    void segregate0and1(vector<int> &arr) {
+        int count0 = 0;
+
+        for(int x : arr)
+            if(x == 0)
+                count0++;
+
+        for(int i = 0; i < arr.size(); i++) {
+            if(i < count0)
+                arr[i] = 0;
+            else
+                arr[i] = 1;
+        }
+    }
+};
+```
+
+### Complexity
+
+| Metric | Value |
+| ------ | ----- |
+| Time   | O(n)  |
+| Space  | O(1)  |
+
+⚠️ Requires **two passes**.
+
+---
+
+# Approach 2: Two Pointer Method
+
+### Idea
+
+Use two pointers:
+
+* `left` → start of array
+* `right` → end of array
+
+Rules:
+
+* If `arr[left] == 0` → move left pointer
+* If `arr[right] == 1` → move right pointer
+* If `arr[left] == 1` and `arr[right] == 0` → swap
+
+### Code
+
+```cpp
+class Solution {
+public:
+    void segregate0and1(vector<int> &arr) {
+
+        int left = 0;
+        int right = arr.size() - 1;
+
+        while(left < right) {
+
+            if(arr[left] == 0)
+                left++;
+
+            else if(arr[right] == 1)
+                right--;
+
+            else {
+                swap(arr[left], arr[right]);
+                left++;
+                right--;
+            }
+        }
+    }
+};
+```
+
+### Complexity
+
+| Metric | Value |
+| ------ | ----- |
+| Time   | O(n)  |
+| Space  | O(1)  |
+
+✅ **Single pass**
+
+---
+
+# Approach 3: Partition Method (Optimal)
+
+This is similar to **QuickSort partitioning**.
+
+### Idea
+
+Maintain a pointer `pos` that indicates where the **next 0 should go**.
+
+When a `0` is found:
+
+* swap it with `arr[pos]`
+* increment `pos`
+
+### Code
+
+```cpp
+class Solution {
+public:
+    void segregate0and1(vector<int> &arr) {
+
+        int pos = 0;
+
+        for(int i = 0; i < arr.size(); i++) {
+
+            if(arr[i] == 0) {
+                swap(arr[i], arr[pos]);
+                pos++;
+            }
+        }
+    }
+};
+```
+
+### Complexity
+
+| Metric | Value |
+| ------ | ----- |
+| Time   | O(n)  |
+| Space  | O(1)  |
+
+---
+
+# Comparison
+
+| Approach    | Passes | Time | Space |
+| ----------- | ------ | ---- | ----- |
+| Counting    | 2      | O(n) | O(1)  |
+| Two Pointer | 1      | O(n) | O(1)  |
+| Partition   | 1      | O(n) | O(1)  |
+
+---
+
+# Pattern Recognition
+
+This problem teaches **array partitioning**, which is used in:
+
+* QuickSort
+* Dutch National Flag Algorithm
+* Sort Colors (LeetCode 75)
+* Move Zeroes
+* Partition Problems
+
+---
+
+# Key Takeaway
+
+If array contains only **two values**, you can often solve it using:
+
+* **Two pointers**
+* **Partition technique**
