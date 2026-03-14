@@ -1,1 +1,133 @@
+# Two Pointer Approach (DSA)
 
+## Overview
+
+The **Two Pointer Approach** is a common technique used in **Data
+Structures and Algorithms (DSA)**, mainly with **arrays and strings**.\
+Instead of using nested loops, we maintain **two indices (pointers)**
+that move through the data structure based on certain conditions.
+
+This technique often reduces time complexity from **O(n²) to O(n)**.
+
+------------------------------------------------------------------------
+
+## Basic Idea
+
+Two pointers are used to scan the array efficiently.
+
+-   One pointer starts from the **beginning (left)**
+-   The other pointer starts from the **end (right)**
+-   Based on the condition, we move one of the pointers.
+
+Example:
+
+    Array: [1, 2, 3, 4, 6]
+
+    left  -> 1
+    right -> 6
+
+The pointers move inward depending on the result of a condition.
+
+------------------------------------------------------------------------
+
+## Opposite Direction Two Pointer Technique
+
+In this method:
+
+-   One pointer starts at the **start of the array**
+-   The other pointer starts at the **end of the array**
+-   The pointers move toward each other until a condition is satisfied.
+
+This technique is typically used when the **array is sorted**.
+
+### Common Use Cases
+
+-   Finding a pair with a given sum in a sorted array
+-   Palindrome checking
+-   Container With Most Water
+-   Removing pairs or matching elements from both ends
+
+------------------------------------------------------------------------
+
+## Example: Two Sum in a Sorted Array
+
+### Problem
+
+Given a sorted array, determine whether two numbers add up to a target
+value.
+
+    arr = [1, 2, 3, 4, 6]
+    target = 6
+
+### Algorithm
+
+1.  Initialize:
+    -   `left = 0`
+    -   `right = n - 1`
+2.  While `left < right`
+3.  Compute `sum = arr[left] + arr[right]`
+4.  If `sum == target` → pair found
+5.  If `sum < target` → move `left++`
+6.  If `sum > target` → move `right--`
+
+------------------------------------------------------------------------
+
+### C++ Implementation
+
+``` cpp
+#include <vector>
+using namespace std;
+
+bool twoSum(vector<int>& arr, int target) {
+    int left = 0;
+    int right = arr.size() - 1;
+
+    while (left < right) {
+        int sum = arr[left] + arr[right];
+
+        if (sum == target)
+            return true;
+        else if (sum < target)
+            left++;
+        else
+            right--;
+    }
+
+    return false;
+}
+```
+
+------------------------------------------------------------------------
+
+## Example Walkthrough
+
+    Array: [1,2,3,4,6]
+    Target = 6
+
+Step 1\
+1 + 6 = 7 → greater than target → move right
+
+Step 2\
+1 + 4 = 5 → less than target → move left
+
+Step 3\
+2 + 4 = 6 → pair found
+
+------------------------------------------------------------------------
+
+## Time Complexity
+
+  Approach      Time Complexity
+  ------------- -----------------
+  Brute Force   O(n²)
+  Two Pointer   O(n)
+
+------------------------------------------------------------------------
+
+## When to Use Two Pointer Approach
+
+Use this technique when:
+
+-   The array is **sorted**
+-   The problem asks for **pairs or comparisons from both ends**
+-   You want to reduce nested loops into **a single traversal**
